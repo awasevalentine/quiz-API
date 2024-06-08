@@ -11,6 +11,14 @@ export const ScoreSchema = new Schema({
   timestamps: {
     createdAt: "created_at",
     updatedAt: "updated_at"
+  },
+  toJSON: {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      ret.id = ret._id;
+      delete ret._id;
+    }
   }
 }
 );
