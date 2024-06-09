@@ -60,10 +60,10 @@ export class ScoreService {
     }
   }
 
-  async getScoreByUser(userId: string): Promise<Score> {
+  async getScoreByUser(userId: string): Promise<Score[]> {
     try {
       const foundScore = await this.scoreModel
-        .findOne({ userId })
+        .find({ userId })
         .populate('userId')
         .populate({
           path: 'quizId',
@@ -82,10 +82,10 @@ export class ScoreService {
     }
   }
 
-  async getScoreByQuiz(quizId: string): Promise<Score> {
+  async getScoreByQuiz(quizId: string): Promise<Score[]> {
     try {
       const foundScore = await this.scoreModel
-        .findOne({ quizId })
+        .find({ quizId })
         .populate('userId')
         .populate({
           path: 'quizId',

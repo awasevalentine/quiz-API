@@ -53,7 +53,7 @@ export class UserResolver {
       createdAt: user.created_at,
       updatedAt: user.updated_at,
     };
-    return jwt.sign(payload, '#$%&^%sECRETKEY@#$%^&*().!y@#$%^&*()', {
+    return jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
   }

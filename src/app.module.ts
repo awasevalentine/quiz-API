@@ -11,10 +11,12 @@ import { QuizModule } from './quiz/quiz.module';
 import { QuestionModule } from './questions/questions.module';
 import { ScoreModule } from './scores/score.module';
 import { FormatError } from './utils/formatError';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/loopscribe-quiz-db', {
+    ConfigModule.forRoot({isGlobal: true}),
+    MongooseModule.forRoot(process.env.DB_URI, {
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -27,6 +29,7 @@ import { FormatError } from './utils/formatError';
         return FormatError(error)
       }
     }),
+
     UserModule,
     AuthModule,
     QuizModule,
