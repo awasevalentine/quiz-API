@@ -21,13 +21,14 @@ import { ConfigModule } from '@nestjs/config';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
+      context: ({req})=> ({req}),
       autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
       },
       formatError: (error: GraphQLError) => {
         return FormatError(error)
-      }
+      },
     }),
 
     UserModule,
