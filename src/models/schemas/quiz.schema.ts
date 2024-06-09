@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Schema } from 'mongoose';
+import {Schema } from 'mongoose';
 
 export const QuizSchema = new Schema({
   title: { type: String, required: true },

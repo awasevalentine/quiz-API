@@ -79,11 +79,11 @@ export class Score {
   @Field(() => ID)
   id: string;
 
-  @Field()
-  userId: string;
+  @Field(()=> User)
+  userId: User;
 
-  @Field()
-  quizId: string;
+  @Field(()=> Quiz)
+  quizId: Quiz;
 
   @Field()
   score: number;

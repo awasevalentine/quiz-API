@@ -62,7 +62,7 @@ export class UserService {
       const foundUser = await this.getUserById(userId);
       if (foundUser) {
         return await this.userModel
-          .findByIdAndUpdate(userId, updatePayload, { upsert: true })
+          .findByIdAndUpdate(userId, updatePayload, { new: true })
           .exec();
       }
     } catch (error) {
