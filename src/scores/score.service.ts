@@ -52,7 +52,7 @@ export class ScoreService {
         return foundScore;
       } else {
         throw new GraphQLError(
-          `No score found with the provided ID ${scoreId}`,
+            `Score with the provided ID ${scoreId} not found`
         );
       }
     } catch (error) {
@@ -75,7 +75,7 @@ export class ScoreService {
       if (foundScore) {
         return foundScore;
       } else {
-        throw new GraphQLError(`No score found for user with ${userId}`);
+        throw new GraphQLError(`Score with the provided user ID ${userId} not found`);
       }
     } catch (error) {
       throw new GraphQLError(error);
@@ -97,7 +97,7 @@ export class ScoreService {
       if (foundScore) {
         return foundScore;
       } else {
-        throw new GraphQLError(`No score found for quiz with ${quizId}`);
+        throw new GraphQLError(`Score with the provided quiz Id ${quizId} not found`);
       }
     } catch (error) {
       throw new GraphQLError(error);

@@ -1,11 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { GraphQLError } from 'graphql';
 import { Model } from 'mongoose';
 import { CreateUserDto, UpdateUserDto } from 'src/models/dto/user.dto';
 import { User } from 'src/models/intefaces/types';
-import { CustomException } from 'src/utils/mogodbErrorFormatter';
 
 @Injectable()
 export class UserService {
@@ -17,11 +16,7 @@ export class UserService {
       await newUSer.save();
       if (newUSer) return 'User created successfully';
     } catch (error) {
-      CustomException(
-        error,
-        'User already exist with username',
-        HttpStatus.FOUND,
-      );
+      throw new GraphQLError(error);
     }
   }
 

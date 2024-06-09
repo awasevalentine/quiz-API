@@ -36,7 +36,7 @@ export class QuizService {
       if (foundQuiz) {
         return foundQuiz;
       } else {
-        throw new GraphQLError(`No quiz found with the provided ID ${quizId}`);
+        throw new GraphQLError(`Quiz with the provided ID ${quizId} not found`);
       }
     } catch (error) {
       throw new GraphQLError(error);

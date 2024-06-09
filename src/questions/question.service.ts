@@ -51,8 +51,7 @@ export class QuestionService {
         return foundQuestion;
       } else {
         throw new GraphQLError(
-          `No question found with the provided ID ${questionId}`,
-        );
+          `Question with the provided ID ${questionId} not found`,);
       }
     } catch (error) {
       throw new GraphQLError(error);

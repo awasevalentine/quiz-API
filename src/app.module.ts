@@ -5,17 +5,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
 import { UserModule } from './users/user.module';
-import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { GraphQLError } from 'graphql';
 import { AuthModule } from './users/auth/auth.module';
 import { QuizModule } from './quiz/quiz.module';
 import { QuestionModule } from './questions/questions.module';
 import { ScoreModule } from './scores/score.module';
+import { FormatError } from './utils/formatError';
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/loopscribe-quiz-db', {
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -25,12 +24,7 @@ import { ScoreModule } from './scores/score.module';
         path: join(process.cwd(), 'src/graphql.ts'),
       },
       formatError: (error: GraphQLError) => {
-        const graphQLFormattedError = {
-          message: error.message,
-          statusCode: error?.extensions?.code,
-          path: error?.path
-        };
-        return graphQLFormattedError;
+        return FormatError(error)
       }
     }),
     UserModule,
