@@ -11,7 +11,7 @@ import { RoleGuard } from 'src/users/auth/role.guard';
 export class ScoreResolver {
   constructor(private readonly scoreService: ScoreService) {}
 
-  @Mutation(() => Score)
+  @Mutation(() => String)
   @UseGuards(JwthGuard, new RoleGuard([Roles.ADMIN]))
   async createScore(
     @Args('createScorePayload') createScorePayload: CreateScoreDto,

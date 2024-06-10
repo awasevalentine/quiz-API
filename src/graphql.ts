@@ -127,7 +127,7 @@ export interface IMutation {
     createQuestion(createQuestionPayload: CreateQuestionDto): Question | Promise<Question>;
     updateQuestion(questionId: string, updateQuestionPayload: UpdateQuestionDto): Question | Promise<Question>;
     deleteQuestion(questionId: string, quizId: string): string | Promise<string>;
-    createScore(createScorePayload: CreateScoreDto): Score | Promise<Score>;
+    createScore(createScorePayload: CreateScoreDto): string | Promise<string>;
     updateScore(scoreId: string, updateScorePayload: UpdateScoreDto): Score | Promise<Score>;
     deleteScore(scoreId: string): Score | Promise<Score>;
 }

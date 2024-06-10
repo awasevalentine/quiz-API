@@ -10,10 +10,11 @@ import { Score } from 'src/models/intefaces/types';
 export class ScoreService {
   constructor(@InjectModel('Score') private scoreModel: Model<Score>) {}
 
-  async createScore(createScorePayload: CreateScoreDto): Promise<Score> {
+  async createScore(createScorePayload: CreateScoreDto): Promise<string> {
     try {
       const createdScore = new this.scoreModel(createScorePayload);
-      return await createdScore.save();
+      await createdScore.save();
+      if(createdScore) return "Score Added successfully"
     } catch (error) {
       throw new GraphQLError(error);
     }

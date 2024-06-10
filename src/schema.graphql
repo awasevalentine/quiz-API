@@ -77,7 +77,7 @@ type Mutation {
   createQuestion(createQuestionPayload: CreateQuestionDto!): Question!
   updateQuestion(questionId: String!, updateQuestionPayload: UpdateQuestionDto!): Question!
   deleteQuestion(questionId: String!, quizId: String!): String!
-  createScore(createScorePayload: CreateScoreDto!): Score!
+  createScore(createScorePayload: CreateScoreDto!): String!
   updateScore(scoreId: String!, updateScorePayload: UpdateScoreDto!): Score!
   deleteScore(scoreId: String!): Score!
 }
