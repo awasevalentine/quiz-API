@@ -1,73 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Quiz Game API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Instruction on how to start the app
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
 
-```bash
-$ npm install
-```
+- Step 1: Clone the repo
 
-## Running the app
+- Step 2: "run npm install" after cloning
 
-```bash
-# development
-$ npm run start
+- Step 3: Setup your database and create .env file in the root of the application where you will pass the url or connection string on the datase.
+        Example: DB_URI="mongodb connection string"
+                 JWT_SECRET="Your secret"
 
-# watch mode
-$ npm run start:dev
+- Step 4: Run "npm run start:dev" to start the application. When the application is successfully started you can use the apollo-graphql playground to test your API
+        <a href="http://localhost:8081/graphql">http://localhost:8081/graphql </a>
 
-# production mode
-$ npm run start:prod
-```
+  ## How to perform actions on the endpoints
 
-## Test
+  - Create user:
+   *         Mutation: 
+                  mutation createUser($createUser: CreateUserDto!) {
+                createUser(createUser: $createUser)
+              }
+  *          Mutation Variables:
+                    {
+                      "createUser": {
+                        "username": "Admin",
+                      	"email": "admin@gmail.com",
+                      	"password": "123456",
+                        "role": "ADMIN"
+                      }
+                    }
+  - Get User:
+  -       query GetUser($username: String!){
+              getUser(username: $username){
+                id
+                username
+                email
+                created_at
+              }
+            }
+-        Query Variable:
+                      {
+                        "username": "Admin"
+                      }
+- Quiz:
+-       mutation CreateQuiz($payload: CreateQuizDto!){
+            createQuiz(createQuizPayload: $payload){
+              id
+              title
+              description
+            }
+          }
+-      Mutation variables:
+                        {
+                        "payload": {
+                          "title": "Web development",
+                          "description": "This is for web development"
+                        }
+                      }
 
-```bash
-# unit tests
-$ npm run test
+  - Question:
+  -         mutation CreateQuestion($payload: CreateQuestionDto!){
+              createQuestion(createQuestionPayload: $payload){
+                id
+                text
+                options
+                correctAnswer
+              }
+            }
 
-# e2e tests
-$ npm run test:e2e
+  -        Question mutation variable:
+                    {
+                    "payload": {
+                      "quizId": "6664a37064894782618eef2b",
+                      "text": "What is Git?",
+                      "options": ["It is a remote repository", "It's a non-sql database"],
+                      "correctAnswer": "It is a remote repository"
+                    }
+                  }
 
-# test coverage
-$ npm run test:cov
-```
+  - Score:
+  -       mutation CreateScore($payload: CreateScoreDto!){
+            createScore(createScorePayload: $payload)
+          }
 
-## Support
+  -       score mutation variable:
+                          {
+                          "payload": {
+                            "userId": "66632473e961f7a7ab9f98ba",
+                            "quizId": "6664a37064894782618eef2b",
+                            "score": "100"
+                          }
+                        }
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+# Note:
+I used "Admin" and "User" for the authorization part. where certain routes are only access and modified by persons with "Admin" roles.
+Also, for all error handling, I created a separate file that handles and format all errors.
