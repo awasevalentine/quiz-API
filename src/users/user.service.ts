@@ -12,6 +12,7 @@ export class UserService {
 
   async createUser(payload: CreateUserDto): Promise<string> {
     try {
+      payload.username = payload.username.toLowerCase()
       const newUSer = new this.userModel(payload);
       await newUSer.save();
       if (newUSer) return 'User created successfully';

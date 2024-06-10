@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(Context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(Context).getContext();
     const { username, password } = ctx?.req?.body?.variables?.loginCredentials;
-    const user: User = await this.userService.getUser(username);
+    const user: User = await this.userService.getUser(username?.toLowerCase());
     const foundPassword = await bcrypt.compare(password, user.password);
     if (foundPassword) {
       ctx.user = user;
